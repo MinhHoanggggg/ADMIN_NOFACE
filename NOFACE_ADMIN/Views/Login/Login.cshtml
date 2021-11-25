@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập admin</title>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/Login.css" />
+</head>
+
+<body>
+    <form class="login" method="post" action="@Url.Action("Login", "Login")">
+        <div style="color: red">@ViewBag.Thongbao</div>
+        <input type="text" placeholder="Tài khoản" name="username">
+        <div style="color: red">@ViewData["Loi1"]</div>
+        <input type="password" placeholder="Mật khẩu" name="password">
+        <div style="color: red">@ViewData["Loi2"]</div>
+        <button type="submit" onclick="btnsubmit_Click" id="btnsubmit">Dzô</button>
+    </form>
+</body>
+</html>
+
