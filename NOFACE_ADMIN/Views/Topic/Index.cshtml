@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NOFACE_ADMIN.Models.Post>
+﻿@model IEnumerable<NOFACE_ADMIN.Models.Topic>
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Material Dashboard 2 by Creative Tim
+        Noface
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="hehe nav-link text-white active bg-gradient-primary " href="/User/Index">
+                    <a class="hehe nav-link text-white " href="/User/index">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">person</i>
                         </div>
@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/billing.html">
+                    <a class="nav-link text-white active bg-gradient-primary" href="/Topic/Index">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">receipt_long</i>
                         </div>
@@ -132,12 +132,6 @@
                         </div>
                     </div>
                     <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
-                            </a>
-                        </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                                 <div class="sidenav-toggler-inner">
@@ -229,6 +223,38 @@
                 </div>
             </div>
         </nav>
+
+        <div class="container-fluid">
+            <div class="row align-items-end justify-content-lg-between">
+                <div class="copyright text-center text-sm text-muted text-lg-end">
+                    <span data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" style="margin-right: 20px" class="btn-sm btn-primary btn-setting">Thêm chủ đề</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm chủ đề</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group input-group-outline">
+                            <label class="form-label">Tên chủ đề...</label>
+                            <input id="inputTopic" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <span type="button" data-bs-dismiss="modal" class=" btn-sm btn-primary">Đóng</span>
+                        <span type="button" class=" btn-sm btn-primary btn-save">Lưu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -236,7 +262,7 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Danh sách bài viết</h6>
+                                <h6 class="text-white text-capitalize ps-3">Danh sách chủ đề</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -244,9 +270,9 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Tài khoản</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Trạng thái</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Vi phạm</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Chủ đề</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder"></th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder"></th>
                                             <th class="text-secondary"></th>
                                         </tr>
                                     </thead>
@@ -256,36 +282,110 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                                                        </div>
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">@item.Post</h6>
-
+                                                            <h6 class="mb-0 text-sm">@item.TopicName</h6>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Kích hoạt</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">@item.Warning</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span data-id="@item.IDUser" type="button" class=" btn-sm btn-primary btn-posts">Bài viết</span>
-                                                    <span data-id="@item.IDUser" type="button" class=" btn-sm btn-primary btn-cmt">Bình luận</span>
-                                                    <span data-id="@item.IDUser" type="button" class=" btn-sm btn-primary btn-ach">Danh hiệu</span>
+                                                    <span data-id="@item.IDTopic" type="button" class="btn-sm btn-primary btn-setting">Sửa chủ đề</span>
                                                 </td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
+
+                                <script>
+                                    $(document).ready(function () {
+
+                                        $(".js-toggle-block").click(function (e) {
+                                            var id = $(this).data('id').trim();
+                                            var button = $(e.target);
+
+                                              var result = window.confirm("Bạn có chắc chắn muốn khóa tài khoản này?");
+
+                                              if (result == true) {
+                                                  $.ajax({
+                                                      type: "GET",
+                                                      url: '@Url.Action("BanUser", "User")',
+                                                      data: jQuery.param({ idUser: id }),
+                                                      dataType: 'json',
+                                                      cache: false,
+                                                      contentType: "application/json; charset=utf-8",
+                                                      success: function (response) {
+                                                          if (response.success == true) {
+                                                              alert("Đã thêm tài khoản vào danh sách hạn chế!");
+                                                              button
+                                                                  .removeClass("js-toggle-block")
+                                                                  .addClass("js-toggle-unblock")
+                                                                  .text("Kích hoạt")
+                                                              $(".status-" + id)
+                                                                  .removeClass("bg-gradient-success")
+                                                                  .addClass("bg-gradient-primary")
+                                                                  .text("Hạn chế")
+                                                          }
+                                                      },
+                                                      error: function (errorThrown) {
+                                                          alert("Đã xảy ra lỗi!");
+                                                      }
+                                                  });
+                                              }
+                                        });
+
+
+                                        $(".js-toggle-unblock").click(function (e) {
+                                            var id = $(this).data('id').trim();
+                                            var date = $(this).data('date');
+                                            var button = $(e.target);
+
+                                            var today = new Date();
+                                            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                                            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                                            var dateTime = date + ' ' + time;
+
+                                            if (date < dateTime)
+                                                var result = confirm("Bạn có chắc chắn muốn mở khóa tài khoản này?");
+
+                                             if (result) {
+
+                                                $.ajax({
+                                                    type: "GET",
+                                                    url: '@Url.Action("UnblockUser", "User")',
+                                                    data: jQuery.param({ idUser: id}),
+                                                    dataType: 'json',
+                                                    cache: false,
+                                                    contentType: "application/json; charset=utf-8",
+                                                    success: function (response) {
+                                                        if (response.success == true) {
+                                                            alert("Đã mở khóa tài khoản thành công!");
+                                                            button
+                                                                .removeClass("js-toggle-unblock")
+                                                                .addClass("js-toggle-block")
+                                                                .text("Hạn chế")
+                                                            $(".status-" + id)
+                                                                .removeClass("bg-gradient-primary")
+                                                                .addClass("bg-gradient-success")
+                                                                .text("Kích hoạt")
+                                                        }
+                                                    },
+                                                    error: function (errorThrown) {
+                                                        alert("Đã xảy ra lỗi!");
+                                                    }
+                                                });
+                                              }
+                                        });
+
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--End Table-->
+
             <footer class="footer py-4  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
@@ -300,6 +400,7 @@
                 </div>
             </footer>
         </div>
+
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -373,6 +474,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
@@ -392,6 +494,62 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/js/material-dashboard.min.js?v=3.0.0"></script>
 
+    <script type="text/javascript">
+        $(function () {
+            $(".btn-posts").click(function () {
+                var id = $(this).data('id').trim();
+                window.location.href = "/User/Post?idUser=" + id;
+            });
+        });
+
+        $(function () {
+            $(".btn-cmt").click(function () {
+                var id = $(this).data('id').trim();
+                window.location.href = "/User/Comment?idUser=" + id;
+            });
+        });
+
+        $(function () {
+            $(".btn-save").click(function () {
+
+                var text = document.getElementById("inputTopic").value;
+
+                if (text.length < 20 && text.length > 0) {
+
+                    var result = confirm("Bạn có chắc chắn muốn thêm chủ đề này?");
+
+                    if (result == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("AddTopic", "Topic")',
+                            data: JSON.stringify({
+                                topic: { IDTopic: 0, TopicName: text, Img: "hehe"}
+                            }),
+                            dataType: 'json',
+                            cache: false,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                if (response.success == true) {
+                                    alert("Đã thêm chủ đề thành công!");
+                                    $('.btn-close').click();
+                                    window.location.href = "/Topic/Index";
+                                }
+                            },
+                            error: function (errorThrown) {
+                                alert("Đã xảy ra lỗi!");
+                            }
+                        });
+                    }
+                } else {
+                    alert("Độ dài nội dung không phù hợp!");
+                }
+
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>
+

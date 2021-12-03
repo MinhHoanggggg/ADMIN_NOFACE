@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json;
 using NOFACE_ADMIN.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NOFACE_ADMIN.Controllers
@@ -58,6 +55,10 @@ namespace NOFACE_ADMIN.Controllers
                     };
                     Message message = TokenAdmin_API(admin).Result;
                     //Gán giá trị cho đối tượng được tạo mới(ad)
+                    if (message.Status.Equals(null) == true)
+                    {
+                        ViewData["Loi3"] = "Tên đăng nhập hoặc mật khẩu không đúng";
+                    }
                     if (message.Notification != null)
                     {
                         Session["token"] = message.Notification;
@@ -77,7 +78,7 @@ namespace NOFACE_ADMIN.Controllers
         async Task<Message> TokenAdmin_API(Admin admin)
         {
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://apinoface.somee.com/");
+            client.BaseAddress = new Uri("http://noface.somee.com/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -92,7 +93,7 @@ namespace NOFACE_ADMIN.Controllers
                 dynamic result = await response.Content.ReadAsStringAsync();
 
                 Message token = JsonConvert.DeserializeObject<Message>(result);
-                if(token.Status == 1)
+                if (token.Status == 1)
                 {
                     return token;
                 }

@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +159,7 @@
     <Content Include="assets\css\nucleo-icons.css" />
     <Content Include="assets\css\nucleo-svg.css" />
     <Content Include="assets\fonts\nucleo-icons.svg" />
+    <Content Include="assets\img\deptrai.png" />
     <Content Include="assets\img\259450760_1291312088040528_5099431046750395306_n.png" />
     <Content Include="assets\img\apple-icon.png" />
     <Content Include="assets\img\bg-pricing.jpg" />
@@ -512,7 +514,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Posts.cshtml" />
+    <Content Include="Views\User\Comment.cshtml" />
+    <Content Include="Views\User\Post.cshtml" />
+    <Content Include="Views\Topic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

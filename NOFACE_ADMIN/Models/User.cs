@@ -1,10 +1,8 @@
 namespace NOFACE_ADMIN.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("User")]
     public partial class User
@@ -31,6 +29,7 @@ namespace NOFACE_ADMIN.Models
 
         public string RefeshToken { get; set; }
 
+        public string TokenFirebase { get; set; }
         public int? Warning { get; set; }
 
         public int? Activated { get; set; }
