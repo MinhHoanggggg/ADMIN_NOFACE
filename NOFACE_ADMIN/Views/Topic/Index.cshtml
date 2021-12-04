@@ -254,6 +254,28 @@
             </div>
         </div>
         <!-- Modal -->
+        <!-- Modal chinh sua-->
+        <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sửa chủ đề</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group input-group-outline">
+                            <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
+                            <input id="inputEditTopic" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <span type="button" data-bs-dismiss="modal" class=" btn-sm btn-primary">Đóng</span>
+                        <span type="button" class=" btn-sm btn-primary btn-saveEdit">Lưu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
 
         <!-- End Navbar -->
         <div class="container-fluid py-4">
@@ -290,95 +312,12 @@
                                                 <td class="align-middle text-center text-sm">
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span data-id="@item.IDTopic" type="button" class="btn-sm btn-primary btn-setting">Sửa chủ đề</span>
+                                                    <span data-bs-toggle="modal" data-bs-target="#ModalEdit" data-name="@item.TopicName" data-id="@item.IDTopic" type="button" class="btn-sm btn-primary btn-setting">Sửa chủ đề</span>
                                                 </td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
-
-                                <script>
-                                    $(document).ready(function () {
-
-                                        $(".js-toggle-block").click(function (e) {
-                                            var id = $(this).data('id').trim();
-                                            var button = $(e.target);
-
-                                              var result = window.confirm("Bạn có chắc chắn muốn khóa tài khoản này?");
-
-                                              if (result == true) {
-                                                  $.ajax({
-                                                      type: "GET",
-                                                      url: '@Url.Action("BanUser", "User")',
-                                                      data: jQuery.param({ idUser: id }),
-                                                      dataType: 'json',
-                                                      cache: false,
-                                                      contentType: "application/json; charset=utf-8",
-                                                      success: function (response) {
-                                                          if (response.success == true) {
-                                                              alert("Đã thêm tài khoản vào danh sách hạn chế!");
-                                                              button
-                                                                  .removeClass("js-toggle-block")
-                                                                  .addClass("js-toggle-unblock")
-                                                                  .text("Kích hoạt")
-                                                              $(".status-" + id)
-                                                                  .removeClass("bg-gradient-success")
-                                                                  .addClass("bg-gradient-primary")
-                                                                  .text("Hạn chế")
-                                                          }
-                                                      },
-                                                      error: function (errorThrown) {
-                                                          alert("Đã xảy ra lỗi!");
-                                                      }
-                                                  });
-                                              }
-                                        });
-
-
-                                        $(".js-toggle-unblock").click(function (e) {
-                                            var id = $(this).data('id').trim();
-                                            var date = $(this).data('date');
-                                            var button = $(e.target);
-
-                                            var today = new Date();
-                                            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-                                            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                                            var dateTime = date + ' ' + time;
-
-                                            if (date < dateTime)
-                                                var result = confirm("Bạn có chắc chắn muốn mở khóa tài khoản này?");
-
-                                             if (result) {
-
-                                                $.ajax({
-                                                    type: "GET",
-                                                    url: '@Url.Action("UnblockUser", "User")',
-                                                    data: jQuery.param({ idUser: id}),
-                                                    dataType: 'json',
-                                                    cache: false,
-                                                    contentType: "application/json; charset=utf-8",
-                                                    success: function (response) {
-                                                        if (response.success == true) {
-                                                            alert("Đã mở khóa tài khoản thành công!");
-                                                            button
-                                                                .removeClass("js-toggle-unblock")
-                                                                .addClass("js-toggle-block")
-                                                                .text("Hạn chế")
-                                                            $(".status-" + id)
-                                                                .removeClass("bg-gradient-primary")
-                                                                .addClass("bg-gradient-success")
-                                                                .text("Kích hoạt")
-                                                        }
-                                                    },
-                                                    error: function (errorThrown) {
-                                                        alert("Đã xảy ra lỗi!");
-                                                    }
-                                                });
-                                              }
-                                        });
-
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -546,6 +485,61 @@
 
             });
         });
+
+        $(function () {
+            $(".btn-saveEdit").click(function () {
+
+                var text = document.getElementById("inputEditTopic").value;
+                var idTopic = document.getElementById("hiddenValue").value;
+
+                if (text.length < 20 && text.length > 0) {
+
+                    var result = confirm("Bạn có chắc chắn muốn sửa chủ đề này?");
+
+                    if (result == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("AddTopic", "Topic")',
+                            data: JSON.stringify({
+                                topic: { IDTopic: idTopic, TopicName: text, Img: "hehe"}
+                            }),
+                            dataType: 'json',
+                            cache: false,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                if (response.success == true) {
+                                    alert("Đã sửa chủ đề thành công!");
+                                    $('.btn-close').click();
+                                    window.location.href = "/Topic/Index";
+                                }
+                            },
+                            error: function (errorThrown) {
+                                alert("Đã xảy ra lỗi!");
+                            }
+                        });
+                    }
+                } else {
+                    alert("Độ dài nội dung không phù hợp!");
+                }
+
+            });
+        });
+
+        var ModalEdit = document.getElementById('ModalEdit')
+        ModalEdit.addEventListener('show.bs.modal', function (event) {
+
+            var button = event.relatedTarget
+
+            var name = button.getAttribute('data-name');
+            var idTopic = button.getAttribute('data-id');
+
+            var modalBodyInput = ModalEdit.querySelector('#inputEditTopic');
+
+            modalBodyInput.value = name;
+            $("#hiddenValue").val(idTopic);
+
+        });
+
 
     </script>
 
