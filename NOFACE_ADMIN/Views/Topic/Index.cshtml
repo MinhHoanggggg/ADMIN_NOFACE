@@ -267,8 +267,13 @@
                             <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
                             <input id="inputEditTopic" type="text" class="form-control">
                         </div>
+                        <div class="mx-auto d-block">
+                            <img id="imgTopic" class=" mx-auto d-block border-radius-lg img-responsive" style="width: 100%; margin-top: 15px;">
+                        </div>
                     </div>
                     <div class="modal-footer">
+                        <input style="display: none" type="file" id="loadFile" onchange="console.log(this.files[0].name);" />
+                        <span type="button" class="btn-sm btn-primary" onclick="document.getElementById('loadFile').click()">Chọn ảnh</span>
                         <span type="button" data-bs-dismiss="modal" class=" btn-sm btn-primary">Đóng</span>
                         <span type="button" class=" btn-sm btn-primary btn-saveEdit">Lưu</span>
                     </div>
@@ -304,6 +309,9 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src="@item.Img" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                                        </div>
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">@item.TopicName</h6>
                                                         </div>
@@ -312,7 +320,7 @@
                                                 <td class="align-middle text-center text-sm">
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span data-bs-toggle="modal" data-bs-target="#ModalEdit" data-name="@item.TopicName" data-id="@item.IDTopic" type="button" class="btn-sm btn-primary btn-setting">Sửa chủ đề</span>
+                                                    <span data-bs-toggle="modal" data-bs-target="#ModalEdit" data-img="@item.Img" data-name="@item.TopicName" data-id="@item.IDTopic" type="button" class="btn-sm btn-primary btn-setting">Sửa chủ đề</span>
                                                 </td>
                                             </tr>
                                         }
@@ -532,10 +540,13 @@
 
             var name = button.getAttribute('data-name');
             var idTopic = button.getAttribute('data-id');
+            var img = button.getAttribute('data-img');
 
             var modalBodyInput = ModalEdit.querySelector('#inputEditTopic');
+            const modalBodyImg = ModalEdit.querySelector('#imgTopic');
 
             modalBodyInput.value = name;
+            modalBodyImg.src = img;
             $("#hiddenValue").val(idTopic);
 
         });

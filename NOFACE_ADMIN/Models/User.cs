@@ -1,5 +1,6 @@
 namespace NOFACE_ADMIN.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -29,10 +30,13 @@ namespace NOFACE_ADMIN.Models
 
         public string RefeshToken { get; set; }
 
-        public string TokenFirebase { get; set; }
         public int? Warning { get; set; }
 
         public int? Activated { get; set; }
+
+
+        [Column(TypeName = "smalldatetime")]
+        public DateTime? TimeRegister { get; set; }
 
         public virtual ICollection<Achievements> Achievements { get; set; }
 
