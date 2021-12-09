@@ -29,10 +29,6 @@ namespace NOFACE_ADMIN.Models
                 .Property(e => e.IDUser)
                 .IsFixedLength();
 
-            modelBuilder.Entity<Avt>()
-                .Property(e => e.Url)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Ban>()
                 .Property(e => e.IDUser)
                 .IsFixedLength();

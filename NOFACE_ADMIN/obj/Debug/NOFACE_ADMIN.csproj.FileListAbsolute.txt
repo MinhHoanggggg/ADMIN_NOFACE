@@ -164,3 +164,15 @@ C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\obj\Debug\NOFACE_ADMIN
 C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\obj\Debug\NOFACE_ADMIN.dll
 C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\obj\Debug\NOFACE_ADMIN.pdb
 C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\obj\Debug\NOFACE_ADMIN.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\FireSharp.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\System.Net.Http.Extensions.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\System.Net.Http.Primitives.dll
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.xml
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\System.Net.Http.Extensions.xml
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\bin\System.Net.Http.Primitives.xml
+C:\Users\Admin\OneDrive\Desktop\ADMIN_NOFACE\NOFACE_ADMIN\obj\Debug\NOFACE_ADMIN.csproj.App.config
