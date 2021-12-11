@@ -5,20 +5,13 @@ namespace NOFACE_ADMIN.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Avt")]
-    public partial class Avt
+    public class Avt
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Avt()
+        public Avt(string imgurl)
         {
-            User = new HashSet<User>();
+            Imgurl = imgurl;
         }
 
-        [Key]
-        public int IDAvt { get; set; }
-
-        public string Url { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public string Imgurl { get; set; }
     }
 }
