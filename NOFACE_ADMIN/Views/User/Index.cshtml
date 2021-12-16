@@ -62,7 +62,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-white " href="/Avatar/Index">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">view_in_ar</i>
+                            <i class="material-icons opacity-10">account_circle</i>
                         </div>
                         <span class="nav-link-text ms-1">Ảnh đại diện</span>
                     </a>
@@ -135,7 +135,7 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                <span class="d-sm-inline d-none">Minh Hoàng</span>
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -245,6 +245,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Tài khoản</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Ngày đăng kí</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Trạng thái</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Vi phạm</th>
                                             <th class="text-secondary"></th>
@@ -264,6 +265,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td class="align-middle text-center text-sm font-weight-bold">@item.TimeRegister</td>
                                                 <td class="align-middle text-center text-sm">
                                                     @if (item.Activated == 1)
                                                     {

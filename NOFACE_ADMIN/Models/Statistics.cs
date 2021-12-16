@@ -7,7 +7,7 @@ namespace NOFACE_ADMIN.Models
 {
     public class Statistics
     {
-        public int[] Posts { get; }
-        public int[] Users { get; }
+        public int[] Posts { get; set; }
+        public int[] Users { get; set; }
     }
 }

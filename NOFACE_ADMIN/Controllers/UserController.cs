@@ -59,8 +59,10 @@ namespace NOFACE_ADMIN.Controllers
             }
 
             var rs = DeleteCmt_API(idCmt).Result;
-
+            if(rs == 1)
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            else
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult BanUser(string idUser)
