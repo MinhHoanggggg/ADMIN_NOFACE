@@ -19,10 +19,9 @@ namespace NOFACE_ADMIN.Models
         [Required]
         [StringLength(200)]
         public string TopicName { get; set; }
-
-        [Required]
-        [StringLength(50)]
+        [StringLength(200)]
         public string Img { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }

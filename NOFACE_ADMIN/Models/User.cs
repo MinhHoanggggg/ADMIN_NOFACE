@@ -54,5 +54,7 @@ namespace NOFACE_ADMIN.Models
 
         public virtual ICollection<Post> Post { get; set; }
 
+        public DateTime timeBan;
+
     }
 }

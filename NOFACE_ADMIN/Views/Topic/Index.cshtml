@@ -242,14 +242,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group input-group-outline">
-                            <label class="form-label">Tên chủ đề...</label>
-                            <input id="inputTopic" type="text" class="form-control">
+                            <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
+                            <input id="inputTopic" placeholder="Nhập tên chủ đề" type="text" class="form-control">
+                        </div>
+                        <div class="mx-auto d-block">
+                            <img id="imgTopic" src="~/assets/img/noImg.png" class=" mx-auto d-block border-radius-lg img-responsive" style="width: 100%; margin-top: 15px; margin-bottom: 15px">
+                        </div>
+                        <div class="input-group input-group-outline">
+                            <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
+                            <input id="inputImgTopic" placeholder="Nhập link hình ảnh" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <span type="button" id="btn-ViewImgAdd" class="btn-sm btn-primary">Xem ảnh</span>
                         <span type="button" data-bs-dismiss="modal" class=" btn-sm btn-primary">Đóng</span>
-                        <span type="button" class=" btn-sm btn-primary btn-save">Lưu</span>
+                        <span type="button" class=" btn-sm btn-primary btn-AddTopic">Lưu</span>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -265,15 +274,18 @@
                     <div class="modal-body">
                         <div class="input-group input-group-outline">
                             <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
-                            <input id="inputEditTopic" type="text" class="form-control">
+                            <input id="inputEditTopic" placeholder="Nhập tên chủ đề" type="text" class="form-control">
                         </div>
                         <div class="mx-auto d-block">
-                            <img id="imgTopic" class=" mx-auto d-block border-radius-lg img-responsive" style="width: 100%; margin-top: 15px;">
+                            <img id="imgTopic" class=" mx-auto d-block border-radius-lg img-responsive" style="width: 100%; margin-top: 15px; margin-bottom: 15px">
+                        </div>
+                        <div class="input-group input-group-outline">
+                            <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
+                            <input id="inputImgTopicEdit" placeholder="Nhập link hình ảnh" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input style="display: none" type="file" id="loadFile" onchange="console.log(this.files[0].name);" />
-                        <span type="button" class="btn-sm btn-primary" onclick="document.getElementById('loadFile').click()">Chọn ảnh</span>
+                        <span type="button" id="btn-ViewImg" class="btn-sm btn-primary">Xem ảnh</span>
                         <span type="button" data-bs-dismiss="modal" class=" btn-sm btn-primary">Đóng</span>
                         <span type="button" class=" btn-sm btn-primary btn-saveEdit">Lưu</span>
                     </div>
@@ -281,7 +293,6 @@
             </div>
         </div>
         <!-- Modal -->
-
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -310,7 +321,7 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="@item.Img" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                                                            <img src="@item.Img" class="avatar avatar-md me-3 border-radius-lg" alt="user1">
                                                         </div>
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">@item.TopicName</h6>
@@ -420,6 +431,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -457,11 +469,12 @@
         });
 
         $(function () {
-            $(".btn-save").click(function () {
+            $(".btn-AddTopic").click(function () {
 
                 var text = document.getElementById("inputTopic").value;
+                var ImgTopic = document.getElementById("inputImgTopic").value;
 
-                if (text.length < 20 && text.length > 0) {
+                if (text.length < 30 && text.length > 0 && ImgTopic != "") {
 
                     var result = confirm("Bạn có chắc chắn muốn thêm chủ đề này?");
 
@@ -470,7 +483,7 @@
                             type: "POST",
                             url: '@Url.Action("AddTopic", "Topic")',
                             data: JSON.stringify({
-                                topic: { IDTopic: 0, TopicName: text, Img: "hehe"}
+                                topic: { IDTopic: 0, TopicName: text, Img: ImgTopic}
                             }),
                             dataType: 'json',
                             cache: false,
@@ -480,45 +493,8 @@
                                     alert("Đã thêm chủ đề thành công!");
                                     $('.btn-close').click();
                                     window.location.href = "/Topic/Index";
-                                }
-                            },
-                            error: function (errorThrown) {
-                                alert("Đã xảy ra lỗi!");
-                            }
-                        });
-                    }
-                } else {
-                    alert("Độ dài nội dung không phù hợp!");
-                }
-
-            });
-        });
-
-        $(function () {
-            $(".btn-saveEdit").click(function () {
-
-                var text = document.getElementById("inputEditTopic").value;
-                var idTopic = document.getElementById("hiddenValue").value;
-
-                if (text.length < 20 && text.length > 0) {
-
-                    var result = confirm("Bạn có chắc chắn muốn sửa chủ đề này?");
-
-                    if (result == true) {
-                        $.ajax({
-                            type: "POST",
-                            url: '@Url.Action("AddTopic", "Topic")',
-                            data: JSON.stringify({
-                                topic: { IDTopic: idTopic, TopicName: text, Img: "hehe"}
-                            }),
-                            dataType: 'json',
-                            cache: false,
-                            contentType: "application/json; charset=utf-8",
-                            success: function (response) {
-                                if (response.success == true) {
-                                    alert("Đã sửa chủ đề thành công!");
-                                    $('.btn-close').click();
-                                    window.location.href = "/Topic/Index";
+                                } else {
+                                    alert("Đã xảy ra lỗi!");
                                 }
                             },
                             error: function (errorThrown) {
@@ -543,17 +519,93 @@
             var img = button.getAttribute('data-img');
 
             var modalBodyInput = ModalEdit.querySelector('#inputEditTopic');
+            var modalImg = ModalEdit.querySelector('#inputImgTopicEdit');
             const modalBodyImg = ModalEdit.querySelector('#imgTopic');
 
             modalBodyInput.value = name;
             modalBodyImg.src = img;
+            modalImg.value = img;
             $("#hiddenValue").val(idTopic);
 
         });
 
+        $(function () {
+            $(".btn-saveEdit").click(function () {
+
+                var text = document.getElementById("inputEditTopic").value;
+                var ImgTopic = document.getElementById("inputImgTopicEdit").value;
+                var idTopic = document.getElementById("hiddenValue").value;
+
+                if (text.length < 30 && text.length > 0 && ImgTopic != "") {
+
+                    var result = confirm("Bạn có chắc chắn muốn sửa chủ đề này?");
+
+                    if (result == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("UpdateTopic", "Topic")',
+                            data: JSON.stringify({
+                                topic: { IDTopic: idTopic, TopicName: text, Img: ImgTopic.trim() }
+                            }),
+                            dataType: 'json',
+                            cache: false,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                if (response.success == true) {
+                                    alert("Đã sửa chủ đề thành công!");
+                                    $('.btn-close').click();
+                                    window.location.href = "/Topic/Index";
+                                } else
+                                    alert("Đã xảy ra lỗi!");
+                            },
+                            error: function (errorThrown) {
+                                alert("Đã xảy ra lỗi!");
+                            }
+                        });
+                    }
+                } else {
+                    alert("Độ dài nội dung không phù hợp!");
+                }
+
+            });
+        });
+
+
+        $(function () {
+            $("#btn-ViewImg").click(function () {
+                
+                var ModalEdit = document.getElementById('ModalEdit')
+                var inputPath = document.getElementById("inputImgTopicEdit").value;
+                const modalBodyImg = ModalEdit.querySelector('#imgTopic');
+
+                if (inputPath != "") {
+                    modalBodyImg.src = inputPath;
+                }
+                else {
+                    alert("Chưa nhập link ảnh mà đòi xem!");
+                }
+            });
+
+        });
+
+        $(function () {
+            $("#btn-ViewImgAdd").click(function () {
+
+                var ModalEdit = document.getElementById('exampleModal')
+                var inputPath = document.getElementById("inputImgTopic").value;
+                const modalBodyImg = ModalEdit.querySelector('#imgTopic');
+
+                if (inputPath != "") {
+                    modalBodyImg.src = inputPath;
+                }
+                else {
+                    alert("Chưa nhập link ảnh mà đòi xem!");
+                }
+            });
+
+        });
 
     </script>
-
 </body>
 
 </html>

@@ -45,6 +45,25 @@ namespace NOFACE_ADMIN.Controllers
             }
         }
 
+        public ActionResult UpdateTopic(Topic topic)
+        {
+            if (Session["token"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var rs = UpdateTopic_API(topic).Result;
+
+            if (rs == 1)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         //api
         async Task<List<Topic>> GetAllTopic_API()
         {
@@ -90,6 +109,37 @@ namespace NOFACE_ADMIN.Controllers
 
                 var content = new StringContent(JsonConvert.SerializeObject(topic), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync("add-topic",content).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    dynamic result = await response.Content.ReadAsStringAsync();
+                    Message rs = JsonConvert.DeserializeObject<Message>(result);
+                    return rs.Status;
+                }
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine();
+            }
+            return 0;
+        }
+
+        async Task<int> UpdateTopic_API(Topic topic)
+        {
+            try
+            {
+                var client = new HttpClient();
+                string accessToken = (string)Session["token"];
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+
+                var content = new StringContent(JsonConvert.SerializeObject(topic), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("update-topic", content).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)

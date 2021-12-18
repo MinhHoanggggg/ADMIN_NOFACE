@@ -273,7 +273,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge badge-sm bg-gradient-primary status-@item.IDUser">Hạn chế</span>
+                                                        <div class="badge badge-sm bg-gradient-primary status-@item.IDUser">Hạn chế</div>
                                                     }
                                                 </td>
                                                 <td class="align-middle text-center">
@@ -284,8 +284,10 @@
                                                     <span data-id="@item.IDUser" type="button" class=" btn-sm btn-primary btn-cmt">Bình luận</span>
                                                     @if (item.Activated != 1)
                                                     {
-                                                        <span data-id="@item.IDUser" data-date="@item.Ban" type="button" class="btn-sm btn-primary js-toggle-unblock">Kích hoạt</span>
-                                                        
+
+                                                        <span  data-dateban="@item.timeBan" data-id="@item.IDUser" type="button" class="btn-sm btn-primary js-toggle-unblock">Kích hoạt</span>
+
+
                                                     }
                                                     else
                                                     {
@@ -302,6 +304,7 @@
 
                                         $(".js-toggle-block").click(function (e) {
                                             var id = $(this).data('id').trim();
+                                            var date = $(this).data('date');
                                             var button = $(e.target);
 
                                               var result = window.confirm("Bạn có chắc chắn muốn khóa tài khoản này?");
@@ -337,7 +340,8 @@
 
                                         $(".js-toggle-unblock").click(function (e) {
                                             var id = $(this).data('id').trim();
-                                            var date = $(this).data('date');
+                                            var timeBan = $(this).data('dateban');
+
                                             var button = $(e.target);
 
                                             var today = new Date();
@@ -345,36 +349,68 @@
                                             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                                             var dateTime = date + ' ' + time;
 
-                                            if (date < dateTime)
+                                            if (timeBan > dateTime) {
+
+                                                var result = confirm("Thời gian hết bạn chế của tài khoản này là " + timeBan + ". Bạn có chắc chắn muốn mở khóa tài khoản này?");
+
+                                                if (result) {
+
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: '@Url.Action("UnblockUser", "User")',
+                                                        data: jQuery.param({ idUser: id }),
+                                                        dataType: 'json',
+                                                        cache: false,
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function (response) {
+                                                            if (response.success == true) {
+                                                                alert("Đã mở khóa tài khoản thành công!");
+                                                                button
+                                                                    .removeClass("js-toggle-unblock")
+                                                                    .addClass("js-toggle-block")
+                                                                    .text("Hạn chế")
+                                                                $(".status-" + id)
+                                                                    .removeClass("bg-gradient-primary")
+                                                                    .addClass("bg-gradient-success")
+                                                                    .text("Kích hoạt")
+                                                            }
+                                                        },
+                                                        error: function (errorThrown) {
+                                                            alert("Đã xảy ra lỗi!");
+                                                        }
+                                                    });
+                                                }
+                                            } else {
                                                 var result = confirm("Bạn có chắc chắn muốn mở khóa tài khoản này?");
 
-                                             if (result) {
+                                                if (result) {
 
-                                                $.ajax({
-                                                    type: "GET",
-                                                    url: '@Url.Action("UnblockUser", "User")',
-                                                    data: jQuery.param({ idUser: id}),
-                                                    dataType: 'json',
-                                                    cache: false,
-                                                    contentType: "application/json; charset=utf-8",
-                                                    success: function (response) {
-                                                        if (response.success == true) {
-                                                            alert("Đã mở khóa tài khoản thành công!");
-                                                            button
-                                                                .removeClass("js-toggle-unblock")
-                                                                .addClass("js-toggle-block")
-                                                                .text("Hạn chế")
-                                                            $(".status-" + id)
-                                                                .removeClass("bg-gradient-primary")
-                                                                .addClass("bg-gradient-success")
-                                                                .text("Kích hoạt")
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        url: '@Url.Action("UnblockUser", "User")',
+                                                        data: jQuery.param({ idUser: id }),
+                                                        dataType: 'json',
+                                                        cache: false,
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function (response) {
+                                                            if (response.success == true) {
+                                                                alert("Đã mở khóa tài khoản thành công!");
+                                                                button
+                                                                    .removeClass("js-toggle-unblock")
+                                                                    .addClass("js-toggle-block")
+                                                                    .text("Hạn chế")
+                                                                $(".status-" + id)
+                                                                    .removeClass("bg-gradient-primary")
+                                                                    .addClass("bg-gradient-success")
+                                                                    .text("Kích hoạt")
+                                                            }
+                                                        },
+                                                        error: function (errorThrown) {
+                                                            alert("Đã xảy ra lỗi!");
                                                         }
-                                                    },
-                                                    error: function (errorThrown) {
-                                                        alert("Đã xảy ra lỗi!");
-                                                    }
-                                                });
-                                              }
+                                                    });
+                                                }
+                                            }
                                         });
 
                                     });

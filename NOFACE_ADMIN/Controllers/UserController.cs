@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -23,6 +24,19 @@ namespace NOFACE_ADMIN.Controllers
             }
 
             var lstUser = GetAllUser_API().Result;
+            var lstBan = GetBan_API().Result;
+
+            foreach(User user in lstUser)
+            {
+                foreach(Ban ban in lstBan)
+                {
+                    if (ban.IDUser.Trim().Equals(user.IDUser.Trim()) == true)
+                    {
+                        user.timeBan = ban.TimeBan;
+                    }
+                }
+            }
+
             return View((List<User>)lstUser);
         }
 
@@ -109,6 +123,24 @@ namespace NOFACE_ADMIN.Controllers
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AddNoti(Notification notification)
+        {
+            if (Session["token"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var rs = Notification_API(notification).Result;
+            if (rs == 1)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         //========================================call API========================================
@@ -374,6 +406,36 @@ namespace NOFACE_ADMIN.Controllers
                 string param = "delete-cmt/" + idCmt;
 
                 var response = await client.DeleteAsync(param).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    dynamic result = await response.Content.ReadAsStringAsync();
+                    Message rs = JsonConvert.DeserializeObject<Message>(result);
+                    return rs.Status;
+                }
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine();
+            }
+            return 0;
+        }
+
+        async Task<int> Notification_API(Notification notification)
+        {
+            try
+            {
+                var client = new HttpClient();
+                string accessToken = (string)Session["token"];
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+                var content = new StringContent(JsonConvert.SerializeObject(notification), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("add-notification", content).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
                 if (response.IsSuccessStatusCode)

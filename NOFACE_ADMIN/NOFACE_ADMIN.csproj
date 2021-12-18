@@ -166,6 +166,7 @@
     <Compile Include="Models\Medals.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\NofaceDbContext.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\SumStatistics.cs" />
@@ -231,6 +232,7 @@
     <Content Include="assets\img\logos\visa.png" />
     <Content Include="assets\img\marie.jpg" />
     <Content Include="assets\img\meeting.jpg" />
+    <Content Include="assets\img\noImg.png" />
     <Content Include="assets\img\office-dark.jpg" />
     <Content Include="assets\img\product-12.jpg" />
     <Content Include="assets\img\products\product-1-min.jpg" />
@@ -289,6 +291,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="noImg.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\css\material-dashboard.css.map" />
